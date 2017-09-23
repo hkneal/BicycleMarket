@@ -1,0 +1,43 @@
+<div class="main">
+    <label for="search">Search:</label>
+    <input type="text" [(ngModel)]="term">
+    <div class="listings" *ngIf="!emptyList">
+        <div *ngFor="let bike of bikeList | filter: term" class="bikeItem">
+            <!-- <div *ngFor="let bike of bikeList" class="bikeItem"> -->
+            <div class="image">
+                <img [src]="bike.image">
+            </div>
+            <div class="description">
+                <h1>{{ bike.title }}</h1>
+                <p>{{ bike.description }}</p>
+            </div>
+            <div class="price">
+                <h1>${{ bike.price }}</h1>
+                <p>{{ bike.location }}</p>
+                <button class='contact' *ngIf="currentId != bike._user._id" data-toggle="modal" data-target="#modal" (click)="openModal(bike)">Contact</button>
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p>Poster's Name: {{ bodyTextName }}</p>
+                                <p>Poster's Email: {{ bodyTextEmail }} </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Modal -->
+                <button class='delete' *ngIf="currentId == bike._user._id" (click)="delete(bike._id)">Delete</button>
+            </div>
+            <!-- End of Price -->
+        </div>
+        <!-- End of *ngFor -->
+    </div>
+    <div *ngIf="emptyList">
+        <h3>
+            All bike listings will be displayed here once listings have been created.
+        </h3>
+    </div>
+</div>

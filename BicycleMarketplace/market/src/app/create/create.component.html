@@ -1,0 +1,37 @@
+<div class="addListing">
+    <h1>Create Listing</h1>
+    <div class="addForm">
+        <form (submit)="addListing(bikeForm, uploader)" #bikeForm='ngForm'>
+            <div class="image">
+                <div class="form-group">
+                    <label for="single">Image Upload</label>
+                    <input *ngIf="!bikeImage" type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />
+                    <div *ngFor="let item of uploader.queue">
+                        <button *ngIf="item.progress == 0" type="button" class="button" (click)="item.upload(); upload(item)">UPLOAD</button>
+                        <!-- <button *ngIf="item.progress == 100" type="button" class="button" (click)="upload(item)">log</button> -->
+                        <span class='alert alert-danger' *ngIf="item.progress != 100">You must upload the image!</span>
+                        <img *ngIf="item.progress == 100" src="{{savedFileName}}">
+                    </div>
+                </div>
+            </div>
+            <div class="description">
+                <label for="title">Title</label>
+                <input type="text" name="title" [(ngModel)]="bike.title" required #title='ngModel'>
+                <span class='alert alert-danger' *ngIf="title.dirty && title.invalid">You must enter in a title!</span>
+                <label for="description">Description</label>
+                <textarea name="description" id="" cols="47" rows="6" [(ngModel)]="bike.description" required maxlength="200" #description='ngModel'></textarea>
+                <span class='alert alert-danger' *ngIf="description.dirty && description.invalid">You must enter in a description less than 200 characters!</span>
+            </div>
+            <div class="price">
+                <label for="price">Price:</label>
+                <input type="number" name="price" [(ngModel)]="bike.price" required min="1" #price='ngModel'>
+                <span class='alert alert-danger' *ngIf="price.dirty && price.invalid">You must enter in a price greater than 0!</span>
+                <label for="location">Location:</label>
+                <input type="text" name="location" [(ngModel)]="bike.location" required #location='ngModel'>
+                <span class='alert alert-danger' *ngIf="location.dirty && location.invalid">You must enter in City, State!</span>
+                <input type="submit" class="button" value="CREATE" [disabled]='bikeForm.invalid'>
+                <span class='alert alert-danger' *ngIf="!bikeImage">You must upload an image!</span>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+label {
+    width: 210px;
+    display: inline-block;
+    text-align: right;
+}
+
+input {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    width: 252px;
+    margin-top: 10px;
+}
+
+
+/* .btn {
+    width: 100%;
+    background-color: #159C1F;
+    color: white;
+    box-shadow: 3px 3px 3px black;
+    display: block;
+    margin-bottom: 20px;
+} */
+
+.button {
+    width: 100%;
+    background-color: #159C1F;
+    color: white;
+    box-shadow: 3px 3px 3px black;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
+.alert {
+    margin: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    display: block;
+}
+
+.ng-invalid:not(form).ng-touched,
+.ng-invalid:not(form).ng-dirty {
+    border: 2px solid red;
+}
+
+.ng-valid:not(form) {
+    border: 2px solid green;
+}

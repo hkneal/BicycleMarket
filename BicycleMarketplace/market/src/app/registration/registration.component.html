@@ -1,0 +1,21 @@
+<form (submit)='regForm.valid && registerUser(regForm)' #regForm='ngForm'>
+    <label for="firstName">*First Name:</label>
+    <input type="text" name="firstName" [(ngModel)]="registeredUser.firstName" required minlength="2" #firstName='ngModel'>
+    <span class='alert alert-danger' *ngIf="firstName.dirty && firstName.invalid">A first name is required! (minimum of 2 characters)</span>
+    <label for="lastName">*Last Name:</label>
+    <input type="text" name="lastName" [(ngModel)]="registeredUser.lastName" required minlength="2" #lastName='ngModel'>
+    <span class='alert alert-danger' *ngIf="lastName.dirty && lastName.invalid">A last name is required! (minimum of 2 characters)</span>
+    <label for="email">*Email:</label>
+    <input type="text" name="email" [(ngModel)]="registeredUser.email" required #email='ngModel'>
+    <span class='alert alert-danger' *ngIf="email.dirty && email.invalid">You must enter in a proper email address, it is required!</span>
+    <span class='alert alert-danger' *ngIf="errors">You must enter in a proper email address, eg. h@something.com!</span>
+    <label for="password">*Password:</label>
+    <input type="password" name="password" [(ngModel)]="registeredUser.password" required minlength="16" #password='ngModel'>
+    <span class='alert alert-danger' *ngIf="password.dirty && password.invalid">A password is required! (minimum of 16 characters)</span>
+    <label for="confirm">*Password Confirmation:</label>
+    <input type="password" name="confirm" required [(ngModel)]="confirmpw" #confirm='ngModel'>
+    <span class='alert alert-danger' *ngIf="confirm.dirty && confirm.model != password.model">You must confirm your password! (Password and Password Confirmation must match)</span>
+    <button class="button" [disabled]='loading'>Register</button>
+    <!-- <input type="submit" value="Register" class="button" [disabled]='regForm.invalid'> -->
+    <span class='alert alert-danger' *ngIf="regForm.submitted && regForm.invalid">You must complete all fields marked with an asterisk '*'</span>
+</form>

@@ -1,0 +1,16 @@
+<h2>Bike of the day!</h2>
+<div class="bikeofday">
+    <div *ngIf="!emptyList" class="image">
+        <img id="bikeImage" [src]="bike.image">
+    </div>
+    <div *ngIf="!emptyList" class="description">
+        <h1>{{ bike.title }}</h1>
+        <p>{{ bike.description}}</p>
+    </div>
+    <div *ngIf="!emptyList" class="price">
+        <h1>${{ bike.price }}</h1>
+    </div>
+    <div *ngIf="emptyList">
+        <h3>A random bike listing will be displayed here once listings have been created.</h3>
+    </div>
+</div>

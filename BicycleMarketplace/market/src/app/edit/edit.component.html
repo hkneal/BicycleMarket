@@ -1,0 +1,30 @@
+<div class="editListing">
+    <h1>Edit/Delete Listing</h1>
+    <!-- ngfor every bike in listing -->
+    <div *ngFor="let bike of myBikeList" class="editForm">
+        <form (submit)="updateListing(bike)" #editForm='ngForm'>
+            <div class="image">
+                <label for="image">Image Upload</label>
+                <input type="image" name="image" [src]="bike.image" alt="" [(ngModel)]="bike.image" required>
+            </div>
+            <div class="description">
+                <label for="title">Title</label>
+                <input type="text" name="title" [(ngModel)]="bike.title" required #title='ngModel'>
+                <span class='alert alert-danger' *ngIf="title.dirty && title.invalid">You must enter in a title!</span>
+                <label for="description">Description</label>
+                <textarea name="description" id="" cols="60" rows="5" [(ngModel)]="bike.description" required maxlength="200" #description='ngModel'></textarea>
+                <span class='alert alert-danger' *ngIf="description.dirty && description.invalid">You must enter in a description less than 200 characters!</span>
+            </div>
+            <div class="price">
+                <label for="price">Price:</label>
+                <input type="number" name="price" [(ngModel)]="bike.price" required min="1" #price='ngModel'>
+                <span class='alert alert-danger' *ngIf="price.dirty && price.invalid">You must enter in a price greater than 0!</span>
+                <label for="location">Location:</label>
+                <input type="text" name="location" [(ngModel)]="bike.location" required #location>
+                <span class='alert alert-danger' *ngIf="location.dirty && location.invalid">You must enter in City, State!</span>
+                <button class="update" type="submit">UPDATE</button>
+                <button class="delete" (click)="delete(bike._id)">DELETE</button>
+            </div>
+        </form>
+    </div>
+</div>

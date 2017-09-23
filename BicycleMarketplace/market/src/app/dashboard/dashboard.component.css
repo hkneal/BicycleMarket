@@ -1,0 +1,32 @@
+nav {
+    display: inline-block;
+}
+
+a {
+    margin: 10px;
+    color: inherit;
+    color: blue;
+    text-decoration: underline;
+    font-size: 20pt;
+}
+
+a:active {
+    font-weight: bold;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+.verticalLine {
+    display: inline-block;
+    border-left: 2px solid black;
+}
+
+.component {
+    margin: 20px;
+}
+
+.header {
+    margin: 10px;
+}

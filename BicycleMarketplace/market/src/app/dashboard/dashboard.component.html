@@ -1,0 +1,14 @@
+<div class="header">
+    <nav>
+        <a [routerLink]="['/dashboard', 'browse']">Browse</a>
+        <div class="verticalLine">
+            <a id="status" [routerLink]="['/dashboard', 'listings']">My Listings</a>
+        </div>
+        <div class="verticalLine">
+            <a id="status" [routerLink]="['/logoff']">Logoff</a>
+        </div>
+    </nav>
+</div>
+<div class="component">
+    <router-outlet></router-outlet>
+</div>
