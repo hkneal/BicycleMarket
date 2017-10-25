@@ -1,8 +1,8 @@
 <div class="main">
-    <label for="search">Search:</label>
-    <input type="text" [(ngModel)]="term">
+    <label for="search">Search: (by title)</label>
+    <input type="text" name="term" [formControl]="term">
     <div class="listings" *ngIf="!emptyList">
-        <div *ngFor="let bike of bikeList | filter: term" class="bikeItem">
+        <div *ngFor="let bike of filteredBikes" class="bikeItem">
             <!-- <div *ngFor="let bike of bikeList" class="bikeItem"> -->
             <div class="image">
                 <img [src]="bike.image">

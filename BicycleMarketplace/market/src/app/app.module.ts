@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { CookieModule } from 'ngx-cookie';
@@ -23,8 +23,6 @@ import { AuthService } from './services/auth.service';
 import { Ng2FileInputModule } from 'ng2-file-input';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { TitilizePipe } from './titilize.pipe';
-
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LogoffComponent } from './logoff/logoff.component';
@@ -54,7 +52,7 @@ import { LogoffComponent } from './logoff/logoff.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    Ng2SearchPipeModule
+    ReactiveFormsModule
   ],
   providers: [BicycleService, AuthService],
   bootstrap: [AppComponent]

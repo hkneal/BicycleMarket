@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 import { BicycleService } from '../../services/bicycle.service';
 import { AuthService } from '../../services/auth.service';
 
 import { Bike } from '../../bike';
+
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 
 @Component({
@@ -11,7 +15,10 @@ import { Bike } from '../../bike';
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.css']
 })
-export class BrowseComponent implements OnInit {
+export class BrowseComponent implements OnInit, OnDestroy {
+  term: FormControl = new FormControl(); // form control of text input
+  termSubscription; // subscription of term eventEmitter sequence
+  filteredBikes = [];
 
   private bodyTextName: string;
   private bodyTextEmail: string;
@@ -30,6 +37,25 @@ export class BrowseComponent implements OnInit {
     });
     this.getBikes();
     this.currentId = this._authService.currentUserId();
+
+    this.filteredBikes = this.bikeList;
+    
+        this.termSubscription = this.term.valueChanges
+          .debounceTime(200)
+          .distinctUntilChanged()
+          .subscribe(
+              term => {
+                let filterBy = term ? term.toLowerCase() : null;
+                let filteredBikes = filterBy
+                  ? this.bikeList.filter( item => item.title.toLowerCase().indexOf(filterBy) !== -1) : this.bikeList;
+                this.filteredBikes = filteredBikes;
+              }
+          )
+  }
+
+  ngOnDestroy(){
+    this.termSubscription.unsubscribe();
+    // this._questionService.questionsObservable.unsubscribe();
   }
 
   getBikes() {
