@@ -68,3 +68,7 @@ input {
 .ng-valid:not(form) {
     border: 2px solid green;
 }
+
+#uploadedPic {
+    max-width: 300px;
+}

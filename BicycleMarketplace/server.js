@@ -29,6 +29,14 @@ app.use(cookieParser('aldknvalinrlekajleifnvaalekfn'));
 
 require('./server/config/mongoose.js');
 
+app.use(function(req, res, next) {
+    //set headers to allow cross origin request.
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use('/api/bikes', require('./server/config/routes/routes.js'));
 app.use('/api/auth', require('./server/config/routes/auth.js'));
 app.use(require('./server/config/routes/catch-all.js'));

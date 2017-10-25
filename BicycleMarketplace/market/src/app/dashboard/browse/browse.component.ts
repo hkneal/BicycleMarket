@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth.service';
 
 import { Bike } from '../../bike';
 
+import { Router } from '@angular/router';
+
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
@@ -29,9 +31,13 @@ export class BrowseComponent implements OnInit, OnDestroy {
   owner: Bike = new Bike ();
   emptyList: boolean = true;
 
-  constructor(private _bikeService: BicycleService, private _authService: AuthService) {}
+  constructor(private _bikeService: BicycleService, private _authService: AuthService, private _router:Router) {}
 
   ngOnInit() {
+    if(!this._authService.isAuthorized()){
+      this._router.navigate(['']);
+    }
+
     this._bikeService.bikesObservable.subscribe( (bikes) => {
       this.bikeList = bikes;
     });

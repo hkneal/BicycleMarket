@@ -5,7 +5,7 @@
         <form (submit)="updateListing(bike)" #editForm='ngForm'>
             <div class="image">
                 <label for="image">Image Upload</label>
-                <input type="image" name="image" [src]="bike.image" alt="" [(ngModel)]="bike.image" required>
+                <input id="uploadedPic" type="image" name="image" [src]="bike.image" alt="" [(ngModel)]="bike.image" required>
             </div>
             <div class="description">
                 <label for="title">Title</label>

@@ -5,6 +5,7 @@ import { BicycleService } from '../services/bicycle.service';
 import { AuthService } from '../services/auth.service';
 import { Ng2FileInputService, Ng2FileInputModule, Ng2FileInputAction } from 'ng2-file-input';
 import { FileUploader } from 'ng2-file-upload';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +22,7 @@ export class CreateComponent implements OnInit {
   savedFileName: string = "";
   id: string = "";
 
-  constructor(private bikeService: BicycleService, private authService: AuthService) {
+  constructor(private bikeService: BicycleService, private _authService: AuthService, private _router: Router) {
     this.bikeService.bikesObservable.subscribe( (bikes) => {
       this.bikeList = bikes;
     });
@@ -33,13 +34,22 @@ export class CreateComponent implements OnInit {
    }
 
   ngOnInit() {
+    if(!this._authService.isAuthorized()){
+      this._router.navigate(['']);
+    }
+    this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
+    //overide the onCompleteItem property of the uploader so we are 
+    //able to deal with the server response.
+    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+         console.log("ImageUpload:uploaded:", item, status, response);
+     };
   }
 
   addListing(form: NgForm, uploader:object){
     console.log('AddListing called in createComponent!')
     if(uploader['queue'][0]['progress'] == 100 && this.bikeImage) {
     //check for bikeimage before creating new bike & save bike image after successful create of bike
-      this.id = this.authService.currentUserId();
+      this.id = this._authService.currentUserId();
       // console.log(this.id);
       this.bikeService.createBike(this.id, this.bike).then((bike) => {
         this.bikeList.push(bike);
@@ -65,6 +75,8 @@ export class CreateComponent implements OnInit {
   upload(item: object){
     // console.log(item);
     this.savedFileName = "../assets/images/" + item['file']['name'];
+    // this.savedFileName = "../src/assets/images/" + item['file']['name'];
+    console.log(this.savedFileName);
     this.bikeImage = true;
     this.bike.image = this.savedFileName;
   }

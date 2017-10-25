@@ -10,6 +10,7 @@ export class ListingComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

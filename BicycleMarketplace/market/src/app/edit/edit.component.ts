@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Bike } from '../bike';
 import { BicycleService } from '../services/bicycle.service';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -14,9 +15,13 @@ export class EditComponent implements OnInit {
   myBikeList: Array<Bike> = [];
   currentId: string = "";
 
-  constructor(private _bikeService: BicycleService, private _authService: AuthService) { }
+  constructor(private _bikeService: BicycleService, private _authService: AuthService, private _router: Router) { }
 
   ngOnInit() {
+    if(!this._authService.isAuthorized()){
+      this._router.navigate(['']);
+    }
+
     this.currentId = this._authService.currentUserId();
     this._bikeService.mybikesObservable.subscribe( ( mybikes ) => {
       this.myBikeList = mybikes;
