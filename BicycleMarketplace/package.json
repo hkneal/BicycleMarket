@@ -10,7 +10,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "angular-file-upload": "^2.5.0",
         "bcrypt-as-promised": "^1.1.0",
         "body-parser": "^1.15.0",
         "cookie-parser": "^1.4.3",
@@ -24,6 +23,6 @@
         "validator": "^8.1.0"
     },
     "devDependencies": {
-        "@angular/cli": "^1.4.1"
+        "@angular/cli": "^1.4.9"
     }
 }
