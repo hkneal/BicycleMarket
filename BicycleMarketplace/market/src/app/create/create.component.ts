@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Bike } from '../bike';
 import { BicycleService } from '../services/bicycle.service';
 import { AuthService } from '../services/auth.service';
-import { Ng2FileInputService, Ng2FileInputModule, Ng2FileInputAction } from 'ng2-file-input';
+
 import { FileUploader } from 'ng2-file-upload';
 
 @Component({

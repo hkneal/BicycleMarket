@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 import { BicycleService } from '../../services/bicycle.service';
 import { AuthService } from '../../services/auth.service';
 
