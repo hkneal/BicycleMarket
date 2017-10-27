@@ -1,27 +1,46 @@
 const Bike = require('mongoose').model('Bike');
 const User = require('mongoose').model('User');
 const multer = require('multer');
-const storage = multer.diskStorage({ //multers disk storage settings
-    destination: function(req, file, cb) {
-        // cb(null, './uploads/');
-        cb(null, './market/dist/assets/images/');
-        // cb(null, './market/src/assets/images/');
-    },
-    filename: function(req, file, cb) {
-        var datetimestamp = Date.now();
-        // cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
-        cb(null, file.originalname);
-    }
-});
+const aws = require('aws-sdk');
+const multerS3 = require('multer-s3');
 
-const upload = multer({ //multer settings
-    storage: storage
+aws.config.loadFromPath('./confighns3.json');
+// aws.config.update({
+//     signatureVersion: 'v4'
+// });
+const myS3 = new aws.S3({});
+
+const upload = multer({
+    storage: multerS3({
+        s3: myS3,
+        bucket: 'hns3bucket',
+        // metadata: function(req, file, cb) {
+        //     cb(null, { fieldName: file.fieldName });
+        // },
+        acl: 'public-read',
+        key: function(req, file, cb) {
+            cb(null, file.originalname)
+        }
+    })
 }).single('file');
 
 module.exports = {
+    getUrl: function(req, res) {
+        const urlParams = { Bucket: 'hns3bucket', Key: req.params.name };
+        console.log('Getting URL from bucket');
+        myS3.getSignedUrl('getObject', urlParams, function(err, url) {
+            if (err) {
+                console.log("There was in Error getting bucketList");
+                res.json({ error_code: 1, err_desc: err });
+                return;
+            }
+            console.log('the url of the image is', url);
+            res.json(url);
+        })
+    },
+
     upload: function(req, res) {
         upload(req, res, function(err) {
-            console.log(req.file);
             if (err) {
                 res.json({ error_code: 1, err_desc: err });
                 return;
@@ -29,6 +48,16 @@ module.exports = {
             res.json({ error_code: 0, err_desc: null });
         });
     },
+    // upload: function(req, res) {
+    //     upload(req, res, function(err) {
+    //         console.log(req.file);
+    //         if (err) {
+    //             res.json({ error_code: 1, err_desc: err });
+    //             return;
+    //         }
+    //         res.json({ error_code: 0, err_desc: null });
+    //     });
+    // },
 
     show: function(req, res) {
         // console.log('In Show');
@@ -106,3 +135,19 @@ module.exports = {
     }
 
 }
+
+// const storage = multer.diskStorage({ //multers disk storage settings
+//     destination: function(req, file, cb) {
+//         // cb(null, './uploads/');
+//         cb(null, './market/dist/assets/images/');
+//     },
+//     filename: function(req, file, cb) {
+//         var datetimestamp = Date.now();
+//         // cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+//         cb(null, file.originalname);
+//     }
+// });
+
+// const upload = multer({ //multer settings
+//     storage: storage
+// }).single('file');

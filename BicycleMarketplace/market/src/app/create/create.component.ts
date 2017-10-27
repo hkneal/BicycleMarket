@@ -42,6 +42,7 @@ export class CreateComponent implements OnInit {
     //able to deal with the server response.
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
          console.log("ImageUpload:uploaded:", item, status, response);
+         this.getUrl(item);
      };
   }
 
@@ -49,9 +50,9 @@ export class CreateComponent implements OnInit {
     console.log('AddListing called in createComponent!')
     if(uploader['queue'][0]['progress'] == 100 && this.bikeImage) {
     //check for bikeimage before creating new bike & save bike image after successful create of bike
-      this.id = this._authService.currentUserId();
-      // console.log(this.id);
-      this.bikeService.createBike(this.id, this.bike).then((bike) => {
+        this.id = this._authService.currentUserId();
+        // console.log(this.id);
+        this.bikeService.createBike(this.id, this.bike).then((bike) => {
         this.bikeList.push(bike);
         this.bikeService.updateBikes(this.bikeList);
         this.bike = new Bike();
@@ -72,34 +73,19 @@ export class CreateComponent implements OnInit {
     
   }
     
-  upload(item: object){
-    // console.log(item);
-    this.savedFileName = "../assets/images/" + item['file']['name'];
-    // this.savedFileName = "../src/assets/images/" + item['file']['name'];
-    console.log(this.savedFileName);
-    this.bikeImage = true;
-    this.bike.image = this.savedFileName;
+  getUrl(item: object){
+    // First verifies images is uploaded then gets the URL of the uploaded image
+    if(item['isUploaded']){
+      this.bikeService.getUrl(item['file']['name']).then((url) => {
+        this.savedFileName = url;
+      }).catch(error => {
+        console.log(`GetUrl Error in CreateComponent: ${ error }`);
+      })
+     //Flip the got bike image flags sets the bike.image name before creating bike object into db
+      this.bikeImage = true;
+      this.bike.image = this.savedFileName;
+    } else console.log('Not loaded yet')
   }
 
-  // public onAction(event: any){
-  //   console.log('in onAction, the event:', event);
-  //   // console.log('in onAction, this.getFileNames:', this.getFileNames(event.currentFiles));
-  //   // this.bike.image = this.getFileNames(event.currentFiles);
-  //   // console.log(event.currentFiles);
-  //   // call service to post to server
-  //   // save filename in Bike.image db 
-  // }
-  // public onAdded(event: any){
-  //   console.log('in onAdded, event.id', event.id);
-  //   this.bikeImage = true;
-  // }
-  // public onRemoved(event: any){
-  //   console.log('in onRemoved, event.id', event.id);
-  //   this.bikeImage = false;
-  // }
-  // private getFileNames(files:File[]):string{
-  //   let names=files.map(file => file.name);
-  //   return names ? names.join(", "): "No files currently added.";
-  // }
 }
 

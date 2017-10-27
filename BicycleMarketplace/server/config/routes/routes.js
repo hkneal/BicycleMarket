@@ -9,4 +9,5 @@ module.exports = router
     .post('/addBike/:id', bikes.create)
     .put('/:id', bikes.update)
     .delete('/:id', bikes.remove)
-    .post('/upload', bikes.upload);
+    .post('/upload', bikes.upload)
+    .get('/getUrl/:name', bikes.getUrl);
