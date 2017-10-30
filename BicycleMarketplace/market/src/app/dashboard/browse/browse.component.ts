@@ -30,10 +30,12 @@ export class BrowseComponent implements OnInit, OnDestroy {
   currentId: string = "";
   owner: Bike = new Bike ();
   emptyList: boolean = true;
+  deleteImage: string = "";
 
   constructor(private _bikeService: BicycleService, private _authService: AuthService, private _router:Router) {}
 
   ngOnInit() {
+    this.currentId = this._authService.currentUserId();
     if(!this._authService.isAuthorized()){
       this._router.navigate(['']);
     }
@@ -42,8 +44,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
       this.bikeList = bikes;
     });
     this.getBikes();
-    this.currentId = this._authService.currentUserId();
-
+    
     this.filteredBikes = this.bikeList;
     
         this.termSubscription = this.term.valueChanges
@@ -65,8 +66,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   }
 
   getBikes() {
-    this._bikeService.getBikes()
-      .then(bikes => {
+    this._bikeService.getBikes().then(bikes => {
         this.bikeList = bikes;
         this._bikeService.updateBikes(this.bikeList);
         if(this.bikeList.length >0){
@@ -79,10 +79,11 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   delete(id: string):void {
     this._bikeService.removeBike(id).then(()=>{
-      console.log('Bike Deleted');
-      this.getBikes();
-    }).catch(error => {
-      console.log(`Error deleting Bike in BrowseComponent: ${ error }`);
+        console.log('Bike Deleted');
+        this.getBikes();
+        this._bikeService.updateBikes(this.bikeList);
+    }).catch((error) => {
+      console.log(`Error Deleting Bike in BrowseComponent: ${ error }`);
     });
   }
 

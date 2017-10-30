@@ -3,8 +3,8 @@
     <input type="email" name='email' [(ngModel)]="loggedInUser.email" required #email='ngModel'>
     <span class='alert alert-danger' *ngIf="email.dirty && email.invalid">You must enter in a proper email address!</span>
     <label for="password">*Password:</label>
-    <input type="password" name="password" [(ngModel)]="loggedInUser.password" required minlength="16" #password='ngModel'>
-    <span class='alert alert-danger' *ngIf="password.dirty && password.invalid">A password is required! (minimum of 16 characters)</span>
+    <input type="password" name="password" [(ngModel)]="loggedInUser.password" required minlength="8" #password='ngModel'>
+    <span class='alert alert-danger' *ngIf="password.dirty && password.invalid">A password is required! (minimum of 8 characters)</span>
     <button class="button" [disabled]='loading'>Login</button>
     <!-- <input type="submit" value="Login" class="button" [disabled]='loginForm.invalid'> -->
     <span class='alert alert-danger' *ngIf="loginForm.submitted && loginForm.invalid">You must complete all fields marked with an asterisk '*'</span>

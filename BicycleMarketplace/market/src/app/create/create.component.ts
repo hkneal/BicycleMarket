@@ -23,6 +23,7 @@ export class CreateComponent implements OnInit {
   id: string = "";
 
   constructor(private bikeService: BicycleService, private _authService: AuthService, private _router: Router) {
+    this.bikeService.updateBikes(this.bikeList);
     this.bikeService.bikesObservable.subscribe( (bikes) => {
       this.bikeList = bikes;
     });
@@ -49,9 +50,11 @@ export class CreateComponent implements OnInit {
   addListing(form: NgForm, uploader:object){
     console.log('AddListing called in createComponent!')
     if(uploader['queue'][0]['progress'] == 100 && this.bikeImage) {
+      // console.log('In if block!');
     //check for bikeimage before creating new bike & save bike image after successful create of bike
         this.id = this._authService.currentUserId();
         // console.log(this.id);
+        // console.log(this.bike);
         this.bikeService.createBike(this.id, this.bike).then((bike) => {
         this.bikeList.push(bike);
         this.bikeService.updateBikes(this.bikeList);
@@ -78,12 +81,17 @@ export class CreateComponent implements OnInit {
     if(item['isUploaded']){
       this.bikeService.getUrl(item['file']['name']).then((url) => {
         this.savedFileName = url;
+        // console.log("this.savedFileName:", this.savedFileName);
+
+        //Flip the got bike image flags sets the bike.image name before creating bike object into db
+        this.bikeImage = true;
+        // this.bike.image = this.savedFileName;
+        const nameArray = this.savedFileName.split("?", 1)
+        this.bike.image = nameArray[0];
+        // console.log("this.bike.image", this.bike.image);
       }).catch(error => {
         console.log(`GetUrl Error in CreateComponent: ${ error }`);
-      })
-     //Flip the got bike image flags sets the bike.image name before creating bike object into db
-      this.bikeImage = true;
-      this.bike.image = this.savedFileName;
+      });
     } else console.log('Not loaded yet')
   }
 

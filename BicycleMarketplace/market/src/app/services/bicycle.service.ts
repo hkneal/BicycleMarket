@@ -39,14 +39,14 @@ export class BicycleService {
     .toPromise();
   }
 
-  getUrl(name: String): Promise<string> {
-    return this.http.get(`/api/bikes/getUrl/${ name }`)
+  createBike(id: String, bike: Bike): Promise<Bike> {
+    return this.http.post(`/api/bikes/addBike/${ id }`, bike)
     .map(response => response.json())
     .toPromise();
   }
 
-  createBike(id: String, bike: Bike): Promise<Bike> {
-    return this.http.post(`/api/bikes/addBike/${ id }`, bike)
+  getUrl(name: String): Promise<string> {
+    return this.http.get(`/api/bikes/getUrl/${ name }`)
     .map(response => response.json())
     .toPromise();
   }

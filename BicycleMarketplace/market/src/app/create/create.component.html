@@ -20,7 +20,7 @@
                 <span class='alert alert-danger' *ngIf="title.dirty && title.invalid">You must enter in a title!</span>
                 <label for="description">Description</label>
                 <textarea name="description" id="" cols="47" rows="6" [(ngModel)]="bike.description" required maxlength="200" #description='ngModel'></textarea>
-                <span class='alert alert-danger' *ngIf="description.dirty && description.invalid">You must enter in a description less than 200 characters!</span>
+                <span class='alert alert-danger' *ngIf="description.dirty && description.invalid">You must enter in a description less than 500 characters!</span>
             </div>
             <div class="price">
                 <label for="price">Price:</label>

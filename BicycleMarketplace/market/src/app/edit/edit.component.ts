@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class EditComponent implements OnInit {
   bike : Bike = new Bike();
   myBikeList: Array<Bike> = [];
+  bikeList: Array<Bike> = [];
   currentId: string = "";
 
   constructor(private _bikeService: BicycleService, private _authService: AuthService, private _router: Router) { }
@@ -32,6 +33,7 @@ export class EditComponent implements OnInit {
   getMyBikeListing():void {
     this._bikeService.getMyBikes(this.currentId).then(bikes => {
       this.myBikeList = bikes;
+      this._bikeService.updateMyBikes(this.myBikeList);
     })
     .catch(error => {
       console.log(`Error retreiving bikes in editComponent: ${ error }`);
@@ -43,7 +45,7 @@ export class EditComponent implements OnInit {
       console.log('Bike Deleted');
       this.getMyBikeListing();
     }).catch(error => {
-      console.log(`Error deleting Bike in BrowseComponent: ${ error }`);
+      console.log(`Error Deleting Bike in BrowseComponent: ${ error }`);
     });
   }
 

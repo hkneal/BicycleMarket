@@ -14,7 +14,7 @@
             <div class="price">
                 <h1>${{ bike.price }}</h1>
                 <p>{{ bike.location }}</p>
-                <button class='contact' *ngIf="currentId != bike._user._id" data-toggle="modal" data-target="#modal" (click)="openModal(bike)">Contact</button>
+                <button class='contact' *ngIf="(currentId != bike._user._id)" data-toggle="modal" data-target="#modal" (click)="openModal(bike)">Contact</button>
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <!-- End of Modal -->
-                <button class='delete' *ngIf="currentId == bike._user._id" (click)="delete(bike._id)">Delete</button>
+                <!-- <button class='delete' *ngIf="currentId == bike._user._id" (click)="delete(bike._id)">Delete</button> -->
             </div>
             <!-- End of Price -->
         </div>

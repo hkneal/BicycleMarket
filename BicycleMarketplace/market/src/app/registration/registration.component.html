@@ -8,10 +8,10 @@
     <label for="email">*Email:</label>
     <input type="text" name="email" [(ngModel)]="registeredUser.email" required #email='ngModel'>
     <span class='alert alert-danger' *ngIf="email.dirty && email.invalid">You must enter in a proper email address, it is required!</span>
-    <span class='alert alert-danger' *ngIf="errors">You must enter in a proper email address, eg. h@something.com!</span>
+    <span class='alert alert-danger' *ngIf="errors">You must enter in a proper or unique email address, eg. h@something.com!</span>
     <label for="password">*Password:</label>
-    <input type="password" name="password" [(ngModel)]="registeredUser.password" required minlength="16" #password='ngModel'>
-    <span class='alert alert-danger' *ngIf="password.dirty && password.invalid">A password is required! (minimum of 16 characters)</span>
+    <input type="password" name="password" [(ngModel)]="registeredUser.password" required minlength="8" #password='ngModel'>
+    <span class='alert alert-danger' *ngIf="password.dirty && password.invalid">A password is required! (minimum of 8 characters)</span>
     <label for="confirm">*Password Confirmation:</label>
     <input type="password" name="confirm" required [(ngModel)]="confirmpw" #confirm='ngModel'>
     <span class='alert alert-danger' *ngIf="confirm.dirty && confirm.model != password.model">You must confirm your password! (Password and Password Confirmation must match)</span>
