@@ -4,10 +4,11 @@ nav {
 
 a {
     margin: 10px;
+    margin-left: 35px;
     color: inherit;
-    color: blue;
+    color: #97fcff;
     text-decoration: underline;
-    font-size: 20pt;
+    font-size: 15pt;
 }
 
 a:active {
@@ -24,7 +25,7 @@ a:hover {
 }
 
 .component {
-    margin: 20px;
+    margin: 35px;
 }
 
 .header {

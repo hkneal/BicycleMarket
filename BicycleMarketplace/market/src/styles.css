@@ -2,4 +2,6 @@
 
 body {
     background-color: #c5d4d6;
+    background-image: url("./assets/images/Fotosearch_k17140501.jpg");
+    background-size: cover;
 }

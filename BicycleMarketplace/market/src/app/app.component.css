@@ -1,7 +1,16 @@
 h1 {
-    margin: 20px;
-    margin-bottom: 60px;
+    margin: 45px;
+    margin-bottom: 15px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 90pt;
+    font-size: 49pt;
     color: rgb(255, 255, 255);
+    /* font-family: good-times, sans-serif;
+    font-style: normal;
+    font-weight: 200;
+    font-family: good-times-bad-times, sans-serif;
+    font-style: normal;
+    font-weight: 900; */
+    font-family: coquette, sans-serif;
+    font-style: normal;
+    font-weight: 700;
 }

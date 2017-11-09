@@ -1,6 +1,10 @@
 h2 {
     margin-left: 20px;
     margin-bottom: 0px;
+    font-family: good-times, sans-serif;
+    font-style: normal;
+    font-weight: 200;
+    color: #97fcff;
 }
 
 .bikeofday {
@@ -21,7 +25,11 @@ h2 {
 }
 
 .image {
-    width: 40%;
+    width: 30%;
+}
+
+img {
+    width: 50%;
 }
 
 .description {
