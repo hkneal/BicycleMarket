@@ -10,7 +10,7 @@ import { BicycleService } from '../services/bicycle.service';
 export class BikeOfDayComponent implements OnInit {
   bike: Bike = new Bike();
   bikeList: Array<Bike> = [];
-  bikePick: number = 0; 
+  bikePick: number = 0;
   emptyList: boolean = true;
 
   constructor(private _bikeService: BicycleService) { }
@@ -26,10 +26,10 @@ export class BikeOfDayComponent implements OnInit {
     this._bikeService.getBikes()
       .then(bikes => {
         this.bikeList = bikes;
-        if(this.bikeList.length > 0) {
+        if (this.bikeList.length > 0) {
           this.emptyList = false;
           this._bikeService.updateBikes(this.bikeList);
-          this.bikePick = Math.floor(Math.random()*this.bikeList.length);
+          this.bikePick = Math.floor(Math.random() * this.bikeList.length);
           this.bike = this.bikeList[this.bikePick];
         }
         // console.log(this.bike);

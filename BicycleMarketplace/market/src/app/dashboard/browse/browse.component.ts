@@ -27,16 +27,16 @@ export class BrowseComponent implements OnInit, OnDestroy {
   bike: Bike = new Bike();
   modalBike: Bike = new Bike();
   bikeList: Array<Bike> = [];
-  currentId: string = "";
+  currentId = '';
   owner: Bike = new Bike ();
-  emptyList: boolean = true;
-  deleteImage: string = "";
+  emptyList = true;
+  deleteImage = '';
 
-  constructor(private _bikeService: BicycleService, private _authService: AuthService, private _router:Router) {}
+  constructor(private _bikeService: BicycleService, private _authService: AuthService, private _router: Router) {}
 
   ngOnInit() {
     this.currentId = this._authService.currentUserId();
-    if(!this._authService.isAuthorized()){
+    if (!this._authService.isAuthorized()) {
       this._router.navigate(['']);
     }
 
@@ -44,23 +44,22 @@ export class BrowseComponent implements OnInit, OnDestroy {
       this.bikeList = bikes;
     });
     this.getBikes();
-    
+
     this.filteredBikes = this.bikeList;
-    
         this.termSubscription = this.term.valueChanges
           .debounceTime(200)
           .distinctUntilChanged()
           .subscribe(
               term => {
-                let filterBy = term ? term.toLowerCase() : null;
-                let filteredBikes = filterBy
+                const filterBy = term ? term.toLowerCase() : null;
+                const filteredBikes = filterBy
                   ? this.bikeList.filter( item => item.title.toLowerCase().indexOf(filterBy) !== -1) : this.bikeList;
                 this.filteredBikes = filteredBikes;
               }
-          )
+          );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.termSubscription.unsubscribe();
     // this._questionService.questionsObservable.unsubscribe();
   }
@@ -69,7 +68,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
     this._bikeService.getBikes().then(bikes => {
         this.bikeList = bikes;
         this._bikeService.updateBikes(this.bikeList);
-        if(this.bikeList.length >0){
+        if (this.bikeList.length > 0) {
           this.emptyList = false;
         }
         // console.log(this.bikeList);
@@ -77,8 +76,8 @@ export class BrowseComponent implements OnInit, OnDestroy {
       .catch(console.log);
     }
 
-  delete(id: string):void {
-    this._bikeService.removeBike(id).then(()=>{
+  delete(id: string): void {
+    this._bikeService.removeBike(id).then(() => {
         console.log('Bike Deleted');
         this.getBikes();
         this._bikeService.updateBikes(this.bikeList);
@@ -87,7 +86,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
     });
   }
 
-  openModal(bike: Bike){
+  openModal(bike: Bike) {
     console.log('Model open clicked!');
     this.bodyTextName = bike['_user']['firstName'];
     this.bodyTextEmail = bike['_user']['email'];
