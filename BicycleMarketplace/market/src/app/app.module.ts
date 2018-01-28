@@ -20,7 +20,7 @@ import { EditComponent } from './edit/edit.component';
 import { BicycleService } from './services/bicycle.service';
 import { AuthService } from './services/auth.service';
 
-import { Ng2FileInputModule } from 'ng2-file-input';
+// import { Ng2FileInputModule } from 'ng2-file-input';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { TitilizePipe } from './titilize.pipe';
 
@@ -45,9 +45,9 @@ import { LogoffComponent } from './logoff/logoff.component';
   ],
   imports: [
     BrowserModule,
-    Ng2FileInputModule.forRoot({
-      dropText: "Image Upload"
-    }),
+    // Ng2FileInputModule.forRoot({
+    //   dropText: "Image Upload"
+    // }),
     CookieModule.forRoot(),
     FormsModule,
     HttpModule,
